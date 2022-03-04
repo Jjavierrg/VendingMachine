@@ -4,6 +4,8 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
+    using VendingMachine.Api.Core;
+    using VendingMachine.Core.Registry;
     using VendingMachine.Infrastructure;
 
     public class Startup
@@ -21,11 +23,9 @@
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddInfrastructure();
+            services.AddCore();
 
-            var assembly = Assembly.GetExecutingAssembly();
-            services.AddMediatR(assembly);
-            services.AddValidatorsFromAssembly(assembly);
-            services.AddAutoMapper(assembly);
+            services.AddTransient<ExceptionValidationMiddleware>();
 
             AddDatabaseContext(services, Configuration);
         }
@@ -34,6 +34,7 @@
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseMiddleware<ExceptionValidationMiddleware>();
 
             ApplyMigrations(app);
         }

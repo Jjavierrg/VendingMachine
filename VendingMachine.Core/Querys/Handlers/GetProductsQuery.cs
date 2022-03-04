@@ -2,12 +2,10 @@
 {
     using AutoMapper;
     using MediatR;
+    using VendingMachine.Core.Models;
+    using VendingMachine.Core.Querys;
     using VendingMachine.Entities;
     using VendingMachine.Infrastructure.Core;
-
-    public class GetProductsQuery : IRequest<IEnumerable<ProductDto>>
-    {
-    }
 
     public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductDto>>
     {

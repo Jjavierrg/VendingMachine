@@ -1,7 +1,7 @@
-﻿namespace VendingMachine.Api.Mapper
+﻿namespace VendingMachine.Core.Mapper
 {
     using AutoMapper;
-    using VendingMachine.Api.Controllers;
+    using VendingMachine.Core.Models;
     using VendingMachine.Entities;
 
     public class AutoMapperProfile : Profile
