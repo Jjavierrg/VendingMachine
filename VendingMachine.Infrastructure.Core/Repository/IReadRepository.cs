@@ -9,9 +9,9 @@
     public interface IReadRepository<T> : IDisposable where T : BaseEntity
     {
         DbSet<T> EntitySet { get; }
-        Task<T?> GetEntityAsync(int id, IQueryOptions<T> queryOptions);
-        Task<T?> GetFirstOrDefaultAsync(IQueryOptions<T> queryOptions);
-        Task<IEnumerable<T>> GetListAsync(IQueryOptions<T> queryOptions);
-        Task<long> GetCountAsync(IQueryOptions<T> queryOptions);
+        Task<T?> GetEntityAsync(int id, IQueryOptions<T>? queryOptions = null);
+        Task<T?> GetFirstOrDefaultAsync(IQueryOptions<T>? queryOptions = null);
+        Task<IEnumerable<T>> GetListAsync(IQueryOptions<T>? queryOptions = null);
+        Task<long> GetCountAsync(IQueryOptions<T>? queryOptions);
     }
 }

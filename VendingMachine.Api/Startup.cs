@@ -1,6 +1,9 @@
 ﻿namespace VendingMachine.Api
 {
+    using FluentValidation;
+    using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using System.Reflection;
     using VendingMachine.Infrastructure;
 
     public class Startup
@@ -18,6 +21,11 @@
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddInfrastructure();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            services.AddMediatR(assembly);
+            services.AddValidatorsFromAssembly(assembly);
+            services.AddAutoMapper(assembly);
 
             AddDatabaseContext(services, Configuration);
         }
@@ -39,7 +47,8 @@
 
         private static void ApplyMigrations(IApplicationBuilder app)
         {
-            var db = app.ApplicationServices.GetRequiredService<VendingUoW>();
+            using var scope = app.ApplicationServices.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<VendingUoW>();
             if (db.Database.GetPendingMigrations().Any())
                 db.Database.Migrate();
         }

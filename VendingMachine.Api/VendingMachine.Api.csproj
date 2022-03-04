@@ -24,11 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
+    <Folder Include="Controllers\Products\Commands\" />
+    <Folder Include="Controllers\Products\Handlers\" />
+    <Folder Include="Controllers\Products\Validators\" />
   </ItemGroup>
 
 </Project>

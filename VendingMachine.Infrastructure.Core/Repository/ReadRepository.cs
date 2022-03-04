@@ -22,36 +22,39 @@
         public DbSet<T> EntitySet => UnitOfWork.CreateSet<T>();
 
         /// <inheritdoc />
-        public virtual Task<T?> GetEntityAsync(int id, IQueryOptions<T> queryOptions)
+        public virtual Task<T?> GetEntityAsync(int id, IQueryOptions<T>? queryOptions = null)
         {
             var query = GetQuery(queryOptions);
             return query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <inheritdoc />
-        public virtual Task<T?> GetFirstOrDefaultAsync(IQueryOptions<T> queryOptions)
+        public virtual Task<T?> GetFirstOrDefaultAsync(IQueryOptions<T>? queryOptions = null)
         {
             var query = GetQuery(queryOptions);
             return query.FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public virtual async Task<IEnumerable<T>> GetListAsync(IQueryOptions<T> queryOptions)
+        public virtual async Task<IEnumerable<T>> GetListAsync(IQueryOptions<T>? queryOptions = null)
         {
             var query = GetQuery(queryOptions);
             return await query.ToListAsync();
         }
 
         /// <inheritdoc />
-        public virtual Task<long> GetCountAsync(IQueryOptions<T> queryOptions)
+        public virtual Task<long> GetCountAsync(IQueryOptions<T>? queryOptions = null)
         {
             var query = GetQuery(queryOptions);
             return query.LongCountAsync();
         }
 
-        protected IQueryable<T> GetQuery(IQueryOptions<T> queryOptions)
+        protected IQueryable<T> GetQuery(IQueryOptions<T>? queryOptions = null)
         {
             IQueryable<T> query = EntitySet;
+
+            if (queryOptions == null)
+                return query;
 
             if (queryOptions.Includes != null)
                 query = queryOptions.Includes(query);
