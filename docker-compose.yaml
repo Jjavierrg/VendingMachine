@@ -11,15 +11,21 @@ services:
         build: 
             context: .
             dockerfile: ./VendingMachine.Api/Dockerfile
-        ports: 
-            - "5222:80"
+        entrypoint: ["./wait-for-it.sh", "db:1433", "-t", "120", "--", "dotnet", "VendingMachine.Api.dll"]
         depends_on: 
           - proxy
+          - db
     uiservice:
         build: 
             context: ./VendingMachine.Web
             dockerfile: Dockerfile
-        ports: 
-          - "9000:80"
         depends_on: 
           - proxy
+
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        expose:  
+            - 1433  
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"

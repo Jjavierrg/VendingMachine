@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE498C8C-B03B-4A29-B29E-699436BD2DBE}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yaml = docker-compose.yaml
+		wait-for-it.sh = wait-for-it.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{CBA64F5A-4522-4B66-87AA-6DEC966D5805}"
