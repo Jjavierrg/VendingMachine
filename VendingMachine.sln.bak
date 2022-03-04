@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "VendingMachine.Web", "VendingMachine.Web\VendingMachine.Web.esproj", "{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "VendingMachine.Web", "VendorMachine.Web\VendingMachine.Web.esproj", "{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Infrastructure", "VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj", "{7132DD12-24F7-4563-B781-46AE70848D97}"
 EndProject

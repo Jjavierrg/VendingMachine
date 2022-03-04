@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+    proxy:
+        build: 
+            context: ./proxy
+            dockerfile: Dockerfile
+        ports: 
+            - "80:80"
+        restart: always
+    apiservice:
+        build: 
+            context: .
+            dockerfile: ./VendingMachine.Api/Dockerfile
+        ports: 
+            - "5222:80"
+        depends_on: 
+          - proxy
+    uiservice:
+        build: 
+            context: ./VendingMachine.Web
+            dockerfile: Dockerfile
+        ports: 
+          - "9000:80"
+        depends_on: 
+          - proxy

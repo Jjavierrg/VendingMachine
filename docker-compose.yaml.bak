@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+    proxy:
+        build: 
+            context: ./proxy
+            dockerfile: Dockerfile
+        ports: 
+            - "80:80"
+            - "443:443"
+        restart: always
+    apiservice:
+        container_name: vendingapi
+        build: 
+            context: ./VendingMachine.Api
+            dockerfile: Dockerfile
+        ports: 
+          - "5001:443"
+    #uiservice:
+    #    container_name: vendingui
+    #    build: 
+    #        context: ./VendingMachine.Web
+    #        dockerfile: Dockerfile
+    #    ports: 
+    #      - "5002:443"
+    #    depends_on: 
+    #      - vendingapi

@@ -1,0 +1,23 @@
+upstream uiserver {
+    server uiservice;
+}
+
+upstream apiserver {
+    server apiservice;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://uiserver;
+    }
+
+    location /swagger {
+        proxy_pass http://apiserver;
+    }
+
+    location /api {
+        proxy_pass http://apiserver;
+    }
+}

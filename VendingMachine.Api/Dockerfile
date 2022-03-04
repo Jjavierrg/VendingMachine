@@ -7,8 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+
 COPY ["VendingMachine.Api/VendingMachine.Api.csproj", "VendingMachine.Api/"]
+COPY ["VendingMachine.Entities/VendingMachine.Entities.csproj", "VendingMachine.Entities/"]
+COPY ["VendingMachine.Infrastructure/VendingMachine.Infrastructure.csproj", "VendingMachine.Infrastructure/"]
+COPY ["VendingMachine.Infrastructure.Core/VendingMachine.Infrastructure.Core.csproj", "VendingMachine.Infrastructure.Core/"]
+
 RUN dotnet restore "VendingMachine.Api/VendingMachine.Api.csproj"
+
 COPY . .
 WORKDIR "/src/VendingMachine.Api"
 RUN dotnet build "VendingMachine.Api.csproj" -c Release -o /app/build
