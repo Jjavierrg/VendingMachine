@@ -59,16 +59,10 @@ namespace VendingMachine.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 columnTypes: new[] { "int", "nvarchar" },
                 values: new object[,]{
-                    { 1, "Product 1" },
-                    { 2, "Product 2" },
-                    { 3, "Product 3" },
-                    { 4, "Product 4" },
-                    { 5, "Product 5" },
-                    { 6, "Product 6" },
-                    { 7, "Product 7" },
-                    { 8, "Product 8" },
-                    { 9, "Product 9" },
-                    { 10, "Product 10" }
+                    { 1, "Tea" },
+                    { 2, "Espresso" },
+                    { 3, "Juice" },
+                    { 4, "Chicken soup" }
                 });
 
             migrationBuilder.InsertData(
@@ -76,16 +70,10 @@ namespace VendingMachine.Infrastructure.Migrations
                 columns: new[] { "Id", "Price", "ProductId", "Quantity" },
                 columnTypes: new[] { "int", "int", "int", "int" },
                 values: new object[,]{
-                    { 1, 11, 1, 1 },
-                    { 2, 22, 2, 2 },
-                    { 3, 33, 3, 3 },
-                    { 4, 44, 4, 4 },
-                    { 5, 55, 5, 5 },
-                    { 6, 66, 6, 6 },
-                    { 7, 77, 7, 7 },
-                    { 8, 88, 8, 8 },
-                    { 9, 99, 9, 9 },
-                    { 10, 100, 10, 10 }
+                    { 1, 130, 1, 10 },
+                    { 2, 180, 2, 20 },
+                    { 3, 180, 3, 20 },
+                    { 4, 180, 4, 15 }
                 });
         }
 

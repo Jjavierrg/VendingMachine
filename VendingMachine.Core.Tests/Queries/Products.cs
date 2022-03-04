@@ -17,25 +17,28 @@ namespace VendingMachine.Core.Tests
 
     public class Queries
     {
+        private readonly IEnumerable<Product> _products;
+        private readonly RepositoryMoq<Product> _repository;
+
         public Queries()
         {
+            _products = Enumerable.Range(1, 10).Select(i => new Product { Id = i, Name = $"Product ${i}" });
+            _repository = new RepositoryMoq<Product>(_products);
         }
 
         [Fact]
-        public async Task GetAllProductsAsync()
+        public async Task GetAllProductsQuery()
         {
             // Arrange
             var query = new GetProductsQuery();
-            var products = Enumerable.Range(1, 10).Select(i => new Product { Id = i, Name = $"Product ${i}" });
-            var repository = new RepositoryMoq<Product>(products);
-            var handler = new GetProductsQueryHandler(repository, MapperMock.Mapper);
+            var handler = new GetProductsQueryHandler(_repository, MapperMock.Mapper);
 
             // Act
             var result = await handler.Handle(query, new CancellationToken());
 
             // Assert
-            Assert.All(result, x => products.Any(y => x.Id == y.Id));
-            Assert.All(products, x => result.Any(y => x.Id == y.Id));
+            Assert.Equal(_products.Count(), result.Count());
+            Assert.True(result.All(x => _products.Any(y => x.Id == y.Id)));
         }
     }
 }

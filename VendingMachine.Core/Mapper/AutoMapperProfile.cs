@@ -8,7 +8,8 @@
     {
         public AutoMapperProfile()
         {
-            CreateMap<Product, ProductDto>();
+            CreateMap<Slot, ProductDto>()
+                .ForMember(d => d.Name, opt => opt.MapFrom((src, dest) => src.Product?.Name));
         }
     }
 }

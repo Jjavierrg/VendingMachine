@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VendingMachine.Infrastructure;
 
@@ -10,9 +11,10 @@ using VendingMachine.Infrastructure;
 namespace VendingMachine.Infrastructure.Migrations
 {
     [DbContext(typeof(VendingUoW))]
-    partial class VendingUoWModelSnapshot : ModelSnapshot
+    [Migration("20220304165426_Added Wallets and Coins")]
+    partial class AddedWalletsandCoins
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

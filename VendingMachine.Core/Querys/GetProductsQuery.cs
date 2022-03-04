@@ -6,5 +6,6 @@
 
     public class GetProductsQuery : IRequest<IEnumerable<ProductDto>>
     {
+        public bool HideNoStock { get; set; } = false;
     }
 }
