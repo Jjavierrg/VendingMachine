@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendingMachine.Api", "Vendi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Core", "VendingMachine.Core\VendingMachine.Core.csproj", "{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Core.Tests", "VendingMachine.Core.Tests\VendingMachine.Core.Tests.csproj", "{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
