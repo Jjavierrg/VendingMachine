@@ -5,6 +5,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using System.Reflection;
     using VendingMachine.Core.Behaviors;
+    using VendingMachine.Core.Services;
 
     public static class Registry
     {
@@ -15,6 +16,8 @@
             services.AddValidatorsFromAssembly(assembly);
             services.AddAutoMapper(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.AddScoped<IWalletService, WalletService>();
 
             return services;
         }

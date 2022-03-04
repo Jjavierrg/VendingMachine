@@ -27,14 +27,5 @@
             var response = await _mediator.Send(query);
             return Ok(response);
         }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(ProductDto), (int)HttpStatusCode.Created)]
-        [ProducesErrorResponseType(typeof(ValidationException))]
-        public async Task<IActionResult> Post([FromBody] AddProductCommand productCommand)
-        {
-            var newProduct = await _mediator.Send(productCommand);
-            return CreatedAtAction(nameof(Get), newProduct);
-        }
     }
 }
