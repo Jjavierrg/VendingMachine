@@ -18,7 +18,7 @@
 
         public async Task<IEnumerable<CoinWithQuantityDto>> Handle(ReturnUserCoinsCommand request, CancellationToken cancellationToken)
         {
-            var userWallet = await _walletService.GetCustomerWalletAsync() ?? new List<CoinWithQuantityDto>();
+            var userWallet = await _walletService.GetCustomerWalletAsync() ?? Enumerable.Empty<CoinWithQuantityDto>();
             await _walletService.ClearCustomerWalletAsync();
             _logger.LogInformation($"Coins returned to user: { string.Join(", ", userWallet.Select(x => $"[{x.CoinValue}: {x.Quantity}]")) }");
 

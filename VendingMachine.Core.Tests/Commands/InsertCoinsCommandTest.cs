@@ -23,7 +23,7 @@ namespace VendingMachine.Core.Tests
         {
             _dataBaseMock = new ContextMoq();
             _validator = new InsertCoinsCommandValidator(_dataBaseMock.CoinRepository);
-            _walletService = new WalletService(_dataBaseMock.CustomerWalletCoinRepository, _dataBaseMock.CoinRepository, MapperMock.Mapper);
+            _walletService = new WalletService(_dataBaseMock.CustomerWalletCoinRepository, _dataBaseMock.MachineWalletCoinRepository, _dataBaseMock.CoinRepository, MapperMock.Mapper);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace VendingMachine.Core.Tests
             var command = new InsertCoinsCommand(walletCoins);
 
             // Act
-            var valid = await _validator.ValidateAsync(command);
+            var valid = await _validator.ValidateAsync(command, options => options.IncludeRuleSets("ValidCoins"));
 
             // Assert
             Assert.False(valid.IsValid);

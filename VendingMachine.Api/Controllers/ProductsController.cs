@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.ComponentModel.DataAnnotations;
     using System.Net;
+    using VendingMachine.Api.Models;
     using VendingMachine.Core.Commands;
     using VendingMachine.Core.Models;
     using VendingMachine.Core.Querys;
@@ -20,7 +21,7 @@
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ProductDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductSlotDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get()
         {
             var query = new GetProductsQuery();
@@ -29,11 +30,20 @@
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(ProductDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProductSlotDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(int id)
         {
             var query = new GetProductQuery(id);
             var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpPost("order")]
+        [ProducesResponseType(typeof(SellDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> OrderProduct([FromBody] SlotOrderDto order)
+        {
+            var command = new SellProductCommand(order?.Quantity ?? 0, order?.SlotNumber ?? 0);
+            var response = await _mediator.Send(command);
             return Ok(response);
         }
     }

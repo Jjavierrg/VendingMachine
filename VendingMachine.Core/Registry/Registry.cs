@@ -18,6 +18,8 @@
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<IChangeService, ChangeService>();
+            services.AddScoped<ISellService, SellService>();
 
             return services;
         }

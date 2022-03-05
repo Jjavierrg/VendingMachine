@@ -8,7 +8,7 @@
     using VendingMachine.Entities;
     using VendingMachine.Infrastructure.Core;
 
-    public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductDto>>
+    public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumerable<ProductSlotDto>>
     {
         private readonly IReadRepository<Slot> _repository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductSlotDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
             var queryOptions = new QueryOptions<Slot>
             {
@@ -30,7 +30,7 @@
                 queryOptions.Filter = (x) => x.Quantity > 0;
 
             var entities = await _repository.GetListAsync(queryOptions);
-            return _mapper.Map<IEnumerable<ProductDto>>(entities);
+            return _mapper.Map<IEnumerable<ProductSlotDto>>(entities);
         }
     }
 }

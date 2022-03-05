@@ -1,6 +1,6 @@
 ﻿namespace VendingMachine.Core.Models
 {
-    public class ProductDto
+    public class ProductSlotDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }

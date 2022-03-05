@@ -65,7 +65,7 @@
             if (queryOptions.Filter != null)
                 query = query.Where(queryOptions.Filter);
 
-            return query;
+            return query.AsNoTracking();
         }
 
         protected virtual void ReleaseManagedResources() => UnitOfWork?.Dispose();

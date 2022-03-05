@@ -40,7 +40,7 @@
         {
         }
 
-        public Task<long> GetCountAsync(IQueryOptions<T>? queryOptions)
+        public Task<long> GetCountAsync(IQueryOptions<T>? queryOptions = null)
         {
             return Task.FromResult(_entities.LongCount());
         }

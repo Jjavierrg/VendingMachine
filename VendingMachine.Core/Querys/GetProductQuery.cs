@@ -3,7 +3,7 @@
     using MediatR;
     using VendingMachine.Core.Models;
 
-    public class GetProductQuery : IRequest<ProductDto>
+    public class GetProductQuery : IRequest<ProductSlotDto>
     {
         public GetProductQuery(int id)
         {

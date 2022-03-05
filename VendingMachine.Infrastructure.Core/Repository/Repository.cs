@@ -48,7 +48,13 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            EntitySet.Attach(item);
+            try
+            {
+                if (UnitOfWork.GetEntry(item).State == EntityState.Detached)
+                    EntitySet.Attach(item);
+            }
+            catch (Exception) { }
+
             UnitOfWork.Modify(item);
         }
 

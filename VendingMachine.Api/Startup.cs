@@ -40,9 +40,11 @@
         }
         private static void AddDatabaseContext(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSqlServer<VendingUoW>(configuration.GetConnectionString("DefaultConnection"), (options) =>
+            services.AddDbContext<VendingUoW>(options =>
             {
-                options.MigrationsAssembly("VendingMachine.Infrastructure");
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), option => option.MigrationsAssembly("VendingMachine.Infrastructure"));
+                options.EnableSensitiveDataLogging();
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
         }
 

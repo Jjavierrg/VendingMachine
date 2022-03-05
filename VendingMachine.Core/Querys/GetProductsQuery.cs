@@ -3,7 +3,7 @@
     using MediatR;
     using VendingMachine.Core.Models;
 
-    public class GetProductsQuery : IRequest<IEnumerable<ProductDto>>
+    public class GetProductsQuery : IRequest<IEnumerable<ProductSlotDto>>
     {
         public GetProductsQuery() : this(false) { }
         public GetProductsQuery(bool hideNoStock)
