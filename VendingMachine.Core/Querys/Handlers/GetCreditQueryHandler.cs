@@ -15,10 +15,6 @@
             _walletService = walletService ?? throw new ArgumentNullException(nameof(walletService));
         }
 
-        public async Task<UserCreditDto> Handle(GetCreditQuery request, CancellationToken cancellationToken)
-        {
-            var credit = await _walletService.GetCustomerCreditAsync();
-            return new UserCreditDto { Credit = credit };
-        }
+        public Task<UserCreditDto> Handle(GetCreditQuery request, CancellationToken cancellationToken) => _walletService.GetCustomerCreditAsync();
     }
 }

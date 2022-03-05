@@ -18,7 +18,7 @@ namespace VendingMachine.Core.Tests
         }
 
         [Fact]
-        public async Task GetAllProductsQuery()
+        public async Task ShouldGetAllProductsQuery()
         {
             // Arrange
             var query = new GetProductsQuery();

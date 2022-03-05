@@ -3,8 +3,7 @@
     using MediatR;
     using VendingMachine.Core.Models;
 
-    public class AddProductCommand: IRequest<ProductDto>
+    public class ReturnUserCoinsCommand : IRequest<IEnumerable<CoinWithQuantityDto>>
     {
-        public string? Name { get; set; }
     }
 }

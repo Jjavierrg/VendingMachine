@@ -1,13 +1,13 @@
 ﻿namespace VendingMachine.Core.Services
 {
+    using VendingMachine.Core.Models;
     using VendingMachine.Entities;
 
     public interface IWalletService
     {
-        Task AddCoinsToCustomerWalletAsync(IEnumerable<(int value, int quantity)> coins);
+        Task AddCoinsToCustomerWalletAsync(IEnumerable<CoinWithQuantityDto> coins);
         Task ClearCustomerWalletAsync();
-        Task<int> GetCustomerCreditAsync();
-        Task<IEnumerable<CustomerWalletCoin>> GetCustomerWalletAsync();
-        Task RemoveCustomerWalletAsync(IEnumerable<CustomerWalletCoin> coins);
+        Task<UserCreditDto> GetCustomerCreditAsync();
+        Task<IEnumerable<CoinWithQuantityDto>> GetCustomerWalletAsync();
     }
 }

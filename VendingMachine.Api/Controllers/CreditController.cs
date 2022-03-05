@@ -29,7 +29,7 @@
 
         [HttpPost]
         [ProducesResponseType(typeof(UserCreditDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> AddCredit([FromBody] WalletCoinDto[] coins)
+        public async Task<IActionResult> AddCredit([FromBody] CoinWithQuantityDto[] coins)
         {
             var command = new InsertCoinsCommand(coins);
             var response = await _mediator.Send(command);

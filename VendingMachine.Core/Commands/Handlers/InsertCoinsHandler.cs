@@ -25,21 +25,20 @@
             if (!coinsAreValid)
             {
                 // TODO RETURN COINS
-                return null;
+                return await _walletService.GetCustomerCreditAsync();
             }
 
             var hasCoins = request?.Coins?.Any() ?? false;
             if (hasCoins)
             {
-                var coins = request.Coins.Select(x => (x.CoinValue, x.Quantity));
-                await _walletService.AddCoinsToCustomerWalletAsync(coins);
-                _logger.LogInformation($"Added coins to wallet: { string.Join(", ", coins) }");
+                await _walletService.AddCoinsToCustomerWalletAsync(request.Coins);
+                _logger.LogInformation($"Added coins to wallet: { string.Join(", ", request.Coins.Select(x => $"[{x.CoinValue}: {x.Quantity}]")) }");
             }
 
             var credit = await _walletService.GetCustomerCreditAsync();
-            _logger.LogInformation($"New User Credit: { credit }");
+            _logger.LogInformation($"New User Credit: { credit.Credit }");
 
-            return new UserCreditDto { Credit = credit};
+            return credit;
         }
 
         private async Task<bool> AreAllCoinsValid(InsertCoinsCommand request)

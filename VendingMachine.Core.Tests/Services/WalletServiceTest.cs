@@ -2,6 +2,7 @@ namespace VendingMachine.Core.Tests
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using VendingMachine.Core.Models;
     using VendingMachine.Core.Services;
     using VendingMachine.Core.Tests.Shared;
     using Xunit;
@@ -14,28 +15,30 @@ namespace VendingMachine.Core.Tests
         public WalletServiceTest()
         {
             _dataBaseMock = new ContextMoq();
-            _walletService = new WalletService(_dataBaseMock.CustomerWalletCoinRepository, _dataBaseMock.CoinRepository);
+            _walletService = new WalletService(_dataBaseMock.CustomerWalletCoinRepository, _dataBaseMock.CoinRepository, MapperMock.Mapper);
         }
 
         [Fact]
-        public async Task AddValidCoinsToWallets()
+        public async Task ShouldAddValidCoinsToWallets()
         {
             // Arrange
-            int[] coins = { 10, 10, 10, 20, 20, 50, 100 };
-            var databaseCoins = await _dataBaseMock.CoinRepository.GetListAsync();
+            CoinWithQuantityDto[] coins = {
+                new CoinWithQuantityDto { CoinValue = 10, Quantity = 3 },
+                new CoinWithQuantityDto { CoinValue = 10, Quantity = 1 },
+                new CoinWithQuantityDto { CoinValue = 20, Quantity = 2 },
+                new CoinWithQuantityDto { CoinValue = 50, Quantity = 1 },
+                new CoinWithQuantityDto { CoinValue = 100, Quantity = 1 },
+            };
 
             // Act
-            await _walletService.AddCoinsToCustomerWalletAsync(coins.Select(x => (x, 1)));
+            await _walletService.AddCoinsToCustomerWalletAsync(coins);
             var walletCoins = await _walletService.GetCustomerWalletAsync();
-            var walletCredit = walletCoins?.Sum(x => {
-                var coin = databaseCoins.First(c => c.Id == x.CoinId);
-                return coin.Value * x.NumberOfCoins;
-            }) ?? 0;
-
+            
             // Assert
             Assert.NotNull(walletCoins);
             Assert.NotEmpty(walletCoins);
-            Assert.Equal(coins.Sum(), walletCredit);
+            Assert.Equal(4, walletCoins.Count());
+            Assert.Contains(walletCoins, x => x.Quantity == 4);
         }
     }
 }

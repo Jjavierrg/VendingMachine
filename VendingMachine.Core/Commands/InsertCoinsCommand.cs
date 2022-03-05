@@ -5,11 +5,11 @@
 
     public class InsertCoinsCommand : IRequest<UserCreditDto>
     {
-        public InsertCoinsCommand(params WalletCoinDto[] coins)
+        public InsertCoinsCommand(params CoinWithQuantityDto[] coins)
         {
             Coins = coins;
         }
 
-        public IEnumerable<WalletCoinDto> Coins { get; }
+        public IEnumerable<CoinWithQuantityDto> Coins { get; }
     }
 }
