@@ -3,6 +3,7 @@
     using FluentValidation;
     using FluentValidation.Results;
     using System.Text.Json;
+    using VendingMachine.Core.Exceptions;
 
     internal sealed class ExceptionValidationMiddleware : IMiddleware
     {
@@ -45,6 +46,10 @@
             exception switch
             {
                 ValidationException => StatusCodes.Status422UnprocessableEntity,
+                InvalidCoinsException => StatusCodes.Status400BadRequest,
+                InsufficientCreditException => StatusCodes.Status422UnprocessableEntity,
+                InsufficientChangeException => StatusCodes.Status422UnprocessableEntity,
+                OutOfStockException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
 

@@ -27,5 +27,14 @@
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(typeof(ProductDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get(int id)
+        {
+            var query = new GetProductQuery(id);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }

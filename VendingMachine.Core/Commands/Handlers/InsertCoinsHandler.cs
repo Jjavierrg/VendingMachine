@@ -3,6 +3,7 @@
     using FluentValidation;
     using MediatR;
     using Microsoft.Extensions.Logging;
+    using VendingMachine.Core.Exceptions;
     using VendingMachine.Core.Models;
     using VendingMachine.Core.Services;
 
@@ -25,7 +26,7 @@
             if (!coinsAreValid)
             {
                 // TODO RETURN COINS
-                return await _walletService.GetCustomerCreditAsync();
+                throw new InvalidCoinsException();
             }
 
             var hasCoins = request?.Coins?.Any() ?? false;

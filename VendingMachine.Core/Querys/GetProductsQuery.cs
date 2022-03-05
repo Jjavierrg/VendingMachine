@@ -1,11 +1,16 @@
 ﻿namespace VendingMachine.Core.Querys
 {
     using MediatR;
-    using System.Collections.Generic;
     using VendingMachine.Core.Models;
 
     public class GetProductsQuery : IRequest<IEnumerable<ProductDto>>
     {
-        public bool HideNoStock { get; set; } = false;
+        public GetProductsQuery() : this(false) { }
+        public GetProductsQuery(bool hideNoStock)
+        {
+            HideNoStock = hideNoStock;
+        }
+
+        public bool HideNoStock { get; }
     }
 }
