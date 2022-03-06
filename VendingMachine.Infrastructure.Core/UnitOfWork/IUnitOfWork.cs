@@ -12,5 +12,6 @@
         void RollbackChanges();
         void Modify<TEntity>(TEntity item) where TEntity : class;
         EntityEntry<TEntity> GetEntry<TEntity>(TEntity item) where TEntity : class;
+        void ResetContextState();
     }
 }

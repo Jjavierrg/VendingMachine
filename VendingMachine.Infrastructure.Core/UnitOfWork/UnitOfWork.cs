@@ -48,6 +48,11 @@
             ChangeTracker.Entries()?.ToList().ForEach(x => x.State = EntityState.Unchanged);
         }
 
+        public void ResetContextState()
+        {
+            ChangeTracker.Entries()?.Where(e => e.Entity != null).ToList().ForEach(e => e.State = EntityState.Detached);
+        }
+
         public EntityEntry<TEntity> GetEntry<TEntity>(TEntity item) where TEntity : class
         {
             return Entry(item);

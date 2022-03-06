@@ -17,6 +17,7 @@
             try
             {
                 await UnitOfWork.SaveChangesAsync();
+                UnitOfWork.ResetContextState();
             }
             catch (Exception ex)
             {
@@ -39,22 +40,19 @@
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
 
-            EntitySet.AddRange(items);
+            foreach (var item in items)
+                Update(item);
         }
 
         /// <inheritdoc />
         public virtual void Update(T item)
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            var local = EntitySet.Local.FirstOrDefault(p => p.Id == item.Id);
 
-            try
-            {
-                if (UnitOfWork.GetEntry(item).State == EntityState.Detached)
-                    EntitySet.Attach(item);
-            }
-            catch (Exception) { }
+            if (local != null)
+                UnitOfWork.GetEntry(item).State = EntityState.Detached;
 
+            EntitySet.Attach(item);
             UnitOfWork.Modify(item);
         }
 
