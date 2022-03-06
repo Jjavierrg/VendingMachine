@@ -2,39 +2,43 @@
 {
     using MediatR;
     using Microsoft.Extensions.Logging;
+    using VendingMachine.Domain.Events;
     using VendingMachine.Domain.Exceptions;
     using VendingMachine.Domain.Models;
     using VendingMachine.Domain.Services;
 
-    public class SellProductHandler : IRequestHandler<SellProductCommand, SellDto>
+    public class SaleProductHandler : IRequestHandler<SaleProductCommand, SaleDto>
     {
-        private readonly ILogger<SellProductHandler> _logger;
-        private readonly ISellService _sellService;
+        private readonly ILogger<SaleProductHandler> _logger;
+        private readonly ISaleService _saleService;
         private readonly IWalletService _walletService;
         private readonly IChangeService _changeService;
+        private readonly IMediator _mediator;
 
-        public SellProductHandler(ILogger<SellProductHandler> logger, ISellService sellService, IWalletService walletService, IChangeService changeService)
+        public SaleProductHandler(ILogger<SaleProductHandler> logger, ISaleService salelService, IWalletService walletService, IChangeService changeService, IMediator mediator)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _sellService = sellService ?? throw new ArgumentNullException(nameof(sellService));
+            _saleService = salelService ?? throw new ArgumentNullException(nameof(salelService));
             _walletService = walletService ?? throw new ArgumentNullException(nameof(walletService));
             _changeService = changeService ?? throw new ArgumentNullException(nameof(changeService));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        public async Task<SellDto> Handle(SellProductCommand request, CancellationToken cancellationToken)
+        public async Task<SaleDto> Handle(SaleProductCommand request, CancellationToken cancellationToken)
         {
-            var hasStock = await _sellService.SlotHasEnoughStock(request.SlotNumber, request.Quantity);
+            var hasStock = await _saleService.SlotHasEnoughStock(request.SlotNumber, request.Quantity);
             if (!hasStock)
             {
                 _logger.LogError($"No enough stock. Slot ordered: {request.SlotNumber} | Quantity: {request.Quantity}");
                 throw new OutOfStockException();
             }
 
-            var orderPrice = await _sellService.GetOrderPrice(request.SlotNumber, request.Quantity);
+            var orderPrice = await _saleService.GetOrderPrice(request.SlotNumber, request.Quantity);
             var userCredit = await _walletService.GetCustomerCreditAsync();
             if (orderPrice > userCredit.Credit)
             {
-                _logger.LogError($"No enough credit. Order Price: {orderPrice} | User Credit: {userCredit}");
+                _logger.LogError($"No enough credit. Order Price: {orderPrice} | User Credit: {userCredit.Credit}");
+                await _mediator.Publish(new InsufficientCreditEvent(orderPrice, userCredit.Credit));
                 throw new InsufficientCreditException(orderPrice - userCredit.Credit);
             }
 
@@ -49,18 +53,22 @@
             }
             catch (InsufficientChangeException)
             {
+                await _mediator.Publish(new InsufficientChangeEvent(userCredit.Credit - orderPrice));
                 _logger.LogError($"No enough change");
                 throw;
             }
 
-            var slot = await _sellService.DiscountQuantityAndGetNewStock(request.SlotNumber, request.Quantity);
-            return new SellDto
+            var slot = await _saleService.DiscountQuantityAndGetNewStock(request.SlotNumber, request.Quantity);
+            var sale = new SaleDto
             {
                 Quantity = request.Quantity,
                 OrderPrice = orderPrice,
                 Product = slot,
                 ChangeCoins = coinsToReturn ?? Enumerable.Empty<CoinWithQuantityDto>()
             };
+
+            await _mediator.Publish(new ProductSoldEvent(sale));
+            return sale;
         }
     }
 }

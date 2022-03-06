@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using VendingMachine.Domain.Models;
 
-    public interface ISellService
+    public interface ISaleService
     {
         Task<ProductSlotDto> DiscountQuantityAndGetNewStock(int slotId, int quantityOrdered);
         Task<int> GetOrderPrice(int slotId, int quantityOrdered);

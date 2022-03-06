@@ -3,9 +3,9 @@
     using MediatR;
     using VendingMachine.Domain.Models;
 
-    public class SellProductCommand : IRequest<SellDto>
+    public class SaleProductCommand : IRequest<SaleDto>
     {
-        public SellProductCommand(int quantity, int slotNumber)
+        public SaleProductCommand(int quantity, int slotNumber)
         {
             Quantity = quantity;
             SlotNumber = slotNumber;

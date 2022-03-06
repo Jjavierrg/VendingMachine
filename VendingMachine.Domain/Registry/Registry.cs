@@ -19,7 +19,7 @@
 
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IChangeService, ChangeService>();
-            services.AddScoped<ISellService, SellService>();
+            services.AddScoped<ISaleService, SaleService>();
 
             return services;
         }

@@ -1,6 +1,6 @@
 ﻿namespace VendingMachine.Domain.Models
 {
-    public class SellDto
+    public class SaleDto
     {
         public ProductSlotDto Product { get; set; }
         public int Quantity { get; set; }

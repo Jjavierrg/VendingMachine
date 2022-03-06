@@ -39,10 +39,10 @@
         }
 
         [HttpPost("order")]
-        [ProducesResponseType(typeof(SellDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SaleDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> OrderProduct([FromBody] SlotOrderDto order)
         {
-            var command = new SellProductCommand(order?.Quantity ?? 0, order?.SlotNumber ?? 0);
+            var command = new SaleProductCommand(order?.Quantity ?? 0, order?.SlotNumber ?? 0);
             var response = await _mediator.Send(command);
             return Ok(response);
         }
