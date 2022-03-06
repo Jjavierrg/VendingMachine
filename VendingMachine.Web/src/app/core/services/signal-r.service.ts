@@ -10,8 +10,9 @@ export class SignalRService {
 
   public startConnection = () => {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(`${environment.apiEndpoint}/display`)
+      .withUrl(`${environment.apiEndpoint}/api/hub`)
       .build();
+
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))

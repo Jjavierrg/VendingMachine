@@ -28,6 +28,10 @@ export interface IApiClient {
     /**
      * @return Success
      */
+    return(): Observable<CoinWithQuantityDto[]>;
+    /**
+     * @return Success
+     */
     productsAll(): Observable<ProductSlotDto[]>;
     /**
      * @return Success
@@ -37,7 +41,7 @@ export interface IApiClient {
      * @param body (optional) 
      * @return Success
      */
-    order(body?: SlotOrderDto | undefined): Observable<SellDto>;
+    order(body?: SlotOrderDto | undefined): Observable<SaleDto>;
 }
 
 @Injectable()
@@ -148,6 +152,64 @@ export class ApiClient implements IApiClient {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = UserCreditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    return(): Observable<CoinWithQuantityDto[]> {
+        let url_ = this.baseUrl + "/api/Credit/return";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processReturn(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processReturn(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CoinWithQuantityDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CoinWithQuantityDto[]>;
+        }));
+    }
+
+    protected processReturn(response: HttpResponseBase): Observable<CoinWithQuantityDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(CoinWithQuantityDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -274,7 +336,7 @@ export class ApiClient implements IApiClient {
      * @param body (optional) 
      * @return Success
      */
-    order(body?: SlotOrderDto | undefined): Observable<SellDto> {
+    order(body?: SlotOrderDto | undefined): Observable<SaleDto> {
         let url_ = this.baseUrl + "/api/Products/order";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -297,14 +359,14 @@ export class ApiClient implements IApiClient {
                 try {
                     return this.processOrder(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SellDto>;
+                    return _observableThrow(e) as any as Observable<SaleDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SellDto>;
+                return _observableThrow(response_) as any as Observable<SaleDto>;
         }));
     }
 
-    protected processOrder(response: HttpResponseBase): Observable<SellDto> {
+    protected processOrder(response: HttpResponseBase): Observable<SaleDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -315,7 +377,7 @@ export class ApiClient implements IApiClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = SellDto.fromJS(resultData200);
+            result200 = SaleDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -415,13 +477,13 @@ export interface IProductSlotDto {
     quantity?: number;
 }
 
-export class SellDto implements ISellDto {
+export class SaleDto implements ISaleDto {
     product?: ProductSlotDto;
     quantity?: number;
     orderPrice?: number;
     changeCoins?: CoinWithQuantityDto[] | undefined;
 
-    constructor(data?: ISellDto) {
+    constructor(data?: ISaleDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -443,9 +505,9 @@ export class SellDto implements ISellDto {
         }
     }
 
-    static fromJS(data: any): SellDto {
+    static fromJS(data: any): SaleDto {
         data = typeof data === 'object' ? data : {};
-        let result = new SellDto();
+        let result = new SaleDto();
         result.init(data);
         return result;
     }
@@ -464,7 +526,7 @@ export class SellDto implements ISellDto {
     }
 }
 
-export interface ISellDto {
+export interface ISaleDto {
     product?: ProductSlotDto;
     quantity?: number;
     orderPrice?: number;

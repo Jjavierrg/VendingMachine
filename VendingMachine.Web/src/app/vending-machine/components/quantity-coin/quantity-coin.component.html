@@ -1,0 +1,4 @@
+<div class="container" *ngIf="coin">
+  <div class="coin">{{ getCoinDescription(coin) }}</div>
+  <input type="number" [(ngModel)]="coin.quantity" [disabled]="readonly">
+</div>

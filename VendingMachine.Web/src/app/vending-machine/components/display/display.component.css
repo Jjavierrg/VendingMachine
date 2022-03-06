@@ -1,0 +1,14 @@
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "lcd phone", sans-serif;
+
+  background: #7d8a52;
+  box-shadow: inset 1px 1px 6px 0px #050505, 0px 0px 4px 2px #000,
+    0px 0px 4px 2px #777;
+}
+
+.credit {
+  align-self: flex-end;
+}

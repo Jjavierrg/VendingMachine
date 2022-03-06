@@ -5,10 +5,11 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiClient, apiEndpoint } from './core/api/api.client';
+import { VendingMachineModule } from './vending-machine/vending-machine.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, VendingMachineModule],
   providers: [
     ApiClient,
     {

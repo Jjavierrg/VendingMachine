@@ -37,5 +37,14 @@
             var response = await _mediator.Send(command);
             return Ok(response);
         }
+
+        [HttpPost("return")]
+        [ProducesResponseType(typeof(IEnumerable<CoinWithQuantityDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ReturnUserCredit()
+        {
+            var command = new ReturnUserCoinsCommand();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }
