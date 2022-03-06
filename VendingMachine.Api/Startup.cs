@@ -24,6 +24,7 @@
             services.AddSwaggerGen();
             services.AddInfrastructure();
             services.AddCore();
+            services.AddCors();
 
             services.AddTransient<ExceptionValidationMiddleware>();
 
@@ -35,6 +36,13 @@
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseMiddleware<ExceptionValidationMiddleware>();
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader()
+                .AllowAnyOrigin()
+                .AllowAnyMethod();
+            });
 
             ApplyMigrations(app);
         }
