@@ -2,7 +2,9 @@
 {
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
     using System.Net;
+    using VendingMachine.Api.Hubs;
     using VendingMachine.Core.Commands;
     using VendingMachine.Core.Models;
     using VendingMachine.Core.Querys;
@@ -12,10 +14,12 @@
     public class CreditController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private IHubContext<DisplayHub> _hub;
 
-        public CreditController(IMediator mediator)
+        public CreditController(IMediator mediator, IHubContext<DisplayHub> hub)
         {
             _mediator = mediator;
+            _hub = hub;
         }
 
         [HttpGet]
@@ -33,6 +37,7 @@
         {
             var command = new InsertCoinsCommand(coins);
             var response = await _mediator.Send(command);
+            await _hub.Clients.All.SendAsync("display", "test");
             return Ok(response);
         }
     }

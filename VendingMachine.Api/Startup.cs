@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
     using VendingMachine.Api.Core;
+    using VendingMachine.Api.Hubs;
     using VendingMachine.Core.Registry;
     using VendingMachine.Infrastructure;
 
@@ -25,24 +26,20 @@
             services.AddInfrastructure();
             services.AddCore();
             services.AddCors();
+            services.AddSignalR();
 
             services.AddTransient<ExceptionValidationMiddleware>();
 
             AddDatabaseContext(services, Configuration);
+            ConfigureCors(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
         {
+            app.UseCors("CorsPolicy");
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseMiddleware<ExceptionValidationMiddleware>();
-
-            app.UseCors(builder =>
-            {
-                builder.AllowAnyHeader()
-                .AllowAnyOrigin()
-                .AllowAnyMethod();
-            });
 
             ApplyMigrations(app);
         }
@@ -62,6 +59,20 @@
             var db = scope.ServiceProvider.GetRequiredService<VendingUoW>();
             if (db.Database.GetPendingMigrations().Any())
                 db.Database.Migrate();
+        }
+
+        private void ConfigureCors(IServiceCollection services)
+        {
+            var AllowedHosts = Configuration.GetSection("AllowedCorsOrigins").Value.Split(",");
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins(AllowedHosts)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
     }
 }
