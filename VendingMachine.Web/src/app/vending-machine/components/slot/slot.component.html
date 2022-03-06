@@ -1,0 +1,10 @@
+<div class="container" *ngIf="product" (click)="onProductSelection(product)">
+  <div class="product" [ngClass]="{'stock': product?.quantity, 'no-stock': !product?.quantity}">
+    <div class="logo">{{getLogoLetter(product)}}</div>
+    <div class="product-name">{{product.name}}</div>
+  </div>
+  <div class="info">
+    <span class="product-price">{{(product?.price ?? 0) / 100}} Eur</span>
+    <span class="units">Stock: {{product?.quantity ?? 0}}</span>
+  </div>
+</div>
