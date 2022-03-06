@@ -6,7 +6,7 @@
     using System.Reflection;
     using VendingMachine.Api.Core;
     using VendingMachine.Api.Hubs;
-    using VendingMachine.Core.Registry;
+    using VendingMachine.Domain.Registry;
     using VendingMachine.Infrastructure;
 
     public class Startup

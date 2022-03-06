@@ -3,7 +3,7 @@
     using FluentValidation;
     using FluentValidation.Results;
     using System.Text.Json;
-    using VendingMachine.Core.Exceptions;
+    using VendingMachine.Domain.Exceptions;
 
     internal sealed class ExceptionValidationMiddleware : IMiddleware
     {

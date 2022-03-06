@@ -1,7 +1,0 @@
-﻿namespace VendingMachine.Core.Models
-{
-    public class UserCreditDto
-    {
-        public int Credit { get; set; }
-    }
-}

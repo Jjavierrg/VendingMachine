@@ -5,9 +5,9 @@
     using Microsoft.AspNetCore.SignalR;
     using System.Net;
     using VendingMachine.Api.Hubs;
-    using VendingMachine.Core.Commands;
-    using VendingMachine.Core.Models;
-    using VendingMachine.Core.Querys;
+    using VendingMachine.Domain.Commands;
+    using VendingMachine.Domain.Models;
+    using VendingMachine.Domain.Querys;
 
     [ApiController]
     [Route("api/[controller]")]

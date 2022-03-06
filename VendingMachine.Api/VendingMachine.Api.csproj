@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VendingMachine.Core\VendingMachine.Core.csproj" />
+    <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj" />
     <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
   </ItemGroup>
 

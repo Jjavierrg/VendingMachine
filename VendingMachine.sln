@@ -27,9 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxyConf", "proxyConf", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendingMachine.Api", "VendingMachine.Api\VendingMachine.Api.csproj", "{E43D2954-B95B-4715-B03C-0E08178A9214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Core", "VendingMachine.Core\VendingMachine.Core.csproj", "{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Domain", "VendingMachine.Domain\VendingMachine.Domain.csproj", "{FE2C06E9-92B4-4810-8FC8-9A106A4809EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Core.Tests", "VendingMachine.Core.Tests\VendingMachine.Core.Tests.csproj", "{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Domain.Tests", "VendingMachine.Domain.Tests\VendingMachine.Domain.Tests.csproj", "{AA6C846C-0FFF-4CD4-BF11-54D97B7FBFE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
