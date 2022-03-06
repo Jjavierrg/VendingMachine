@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.SignalR;
 
-    public class DisplayHub: Hub
+    public class Vending: Hub
     {
     }
 }

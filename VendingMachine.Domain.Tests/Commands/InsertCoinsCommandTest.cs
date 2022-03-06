@@ -1,6 +1,8 @@
 namespace VendingMachine.Domain.Tests
 {
     using FluentValidation;
+    using MediatR;
+    using Moq;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -47,7 +49,8 @@ namespace VendingMachine.Domain.Tests
             // Arrange
             var command = new ReturnUserCoinsCommand();
             var logger = new MockupLogger<InsertCoinsHandler>();
-            var handler = new ReturnUserCoinsHandler(logger, _walletService);
+            var mediator = new Mock<IMediator>();
+            var handler = new ReturnUserCoinsHandler(logger, _walletService, mediator.Object);
             var customerCoins = new CustomerWalletCoin[] {
                 new CustomerWalletCoin { CoinId = 1, NumberOfCoins = 2 },
                 new CustomerWalletCoin { CoinId = 2, NumberOfCoins = 3 },

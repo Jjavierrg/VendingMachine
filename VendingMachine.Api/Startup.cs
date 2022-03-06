@@ -1,11 +1,10 @@
 ﻿namespace VendingMachine.Api
 {
-    using FluentValidation;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
-    using VendingMachine.Api.Core;
-    using VendingMachine.Api.Hubs;
+    using VendingMachine.Api.Middlewares;
+    using VendingMachine.Api.Services;
     using VendingMachine.Domain.Registry;
     using VendingMachine.Infrastructure;
 
@@ -27,8 +26,10 @@
             services.AddCore();
             services.AddCors();
             services.AddSignalR();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddTransient<ExceptionValidationMiddleware>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             AddDatabaseContext(services, Configuration);
             ConfigureCors(services);

@@ -9,5 +9,5 @@ var app = builder.Build();
 startup.Configure(app, app.Lifetime);
 
 app.MapControllers();
-app.MapHub<DisplayHub>("/display");
+app.MapHub<Vending>("/api/hub");
 app.Run();

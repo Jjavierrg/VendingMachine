@@ -8,12 +8,12 @@
     using VendingMachine.Entities;
     using VendingMachine.Infrastructure.Core;
 
-    public class SaleService : ISaleService
+    public class SellService : ISaleService
     {
         private readonly IRepository<Slot> _slotRepository;
         private readonly IMapper _mapper;
 
-        public SaleService(IRepository<Slot> slotRepository, IMapper mapper)
+        public SellService(IRepository<Slot> slotRepository, IMapper mapper)
         {
             _slotRepository = slotRepository ?? throw new ArgumentNullException(nameof(slotRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

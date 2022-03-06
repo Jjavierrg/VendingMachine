@@ -1,4 +1,4 @@
-﻿namespace VendingMachine.Api.Core
+﻿namespace VendingMachine.Api.Middlewares
 {
     using FluentValidation;
     using FluentValidation.Results;

@@ -14,12 +14,10 @@
     public class CreditController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private IHubContext<DisplayHub> _hub;
 
-        public CreditController(IMediator mediator, IHubContext<DisplayHub> hub)
+        public CreditController(IMediator mediator)
         {
             _mediator = mediator;
-            _hub = hub;
         }
 
         [HttpGet]
@@ -37,7 +35,6 @@
         {
             var command = new InsertCoinsCommand(coins);
             var response = await _mediator.Send(command);
-            await _hub.Clients.All.SendAsync("display", "test");
             return Ok(response);
         }
     }
