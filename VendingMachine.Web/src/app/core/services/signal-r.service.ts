@@ -32,7 +32,11 @@ export class SignalRService {
 
   public addDisplayDataListener = () => {
     this.hubConnection.on('display', (data) => {
-      const displayData = JSON.parse(data) as DisplayData;
+      const dataObject = JSON.parse(data);
+      const displayData = new DisplayData();
+      displayData.statusText = dataObject.StatusText;
+      displayData.creditInfo = dataObject.CreditInfo;
+
       this.displaySubject.next(displayData);
     });
   };

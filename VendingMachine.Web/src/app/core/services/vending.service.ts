@@ -4,6 +4,8 @@ import {
   ApiClient,
   CoinWithQuantityDto,
   ProductSlotDto,
+  SaleDto,
+  SlotOrderDto,
 } from '../api/api.client';
 import { map } from 'rxjs/operators';
 
@@ -33,5 +35,10 @@ export class VendingService {
 
   public returnCoins(): void {
     this.apiClient.return().subscribe();
+  }
+
+  public selectProduct(product: ProductSlotDto): Observable<SaleDto> {
+    const order = new SlotOrderDto({ quantity: 1, slotNumber: product.id });
+    return this.apiClient.order(order);
   }
 }

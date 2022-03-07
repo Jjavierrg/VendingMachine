@@ -11,10 +11,10 @@ import { VendingService } from './core/services/vending.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public products$: Observable<ProductSlotDto[]>;
+  public products: ProductSlotDto[] = [];
   public insertCoins: CoinWithQuantityDto[] = [];
   public returnedCoins: CoinWithQuantityDto[] = [];
-  public displayData: DisplayData = { StatusText: '', CreditInfo: 0 };
+  public displayData: DisplayData = { statusText: '', creditInfo: 0 };
 
   public insertCoinsModalVisible: boolean = false;
   public isReturnCoinsModalVisible: boolean = false;
@@ -23,23 +23,11 @@ export class AppComponent implements OnInit {
     public signalRService: SignalRService,
     public vendingService: VendingService
   ) {
-    this.subscribeToDisplayData();
-    this.subscribeToReturnData();
-
-    this.products$ = this.vendingService.getProducts();
-    this.vendingService
-      .getUserCredit()
-      .subscribe((x) => (this.displayData.CreditInfo = x));
-
-    this.vendingService
-      .getAvailableCoins()
-      .subscribe((x) => (this.insertCoins = x));
+    this.loadInitialData();
   }
 
   public ngOnInit(): void {
-    this.signalRService.startConnection();
-    this.signalRService.addDisplayDataListener();
-    this.signalRService.addReturnDataListener();
+    this.subscribeToSignalR();
   }
 
   public showInsertCoins() {
@@ -55,8 +43,45 @@ export class AppComponent implements OnInit {
     this.vendingService.returnCoins();
   }
 
+  public onProductSelection(slot: ProductSlotDto): void {
+    this.vendingService.selectProduct(slot).subscribe((x) => {
+      const product = this.products.find((p) => p.id === x.product?.id);
+      if (!!product) {
+        product.quantity = x.product?.quantity;
+      }
+    });
+  }
+
+  private loadInitialData(): void {
+    this.vendingService.getProducts().subscribe((x) => (this.products = x));
+    this.vendingService
+      .getUserCredit()
+      .subscribe((x) => (this.displayData.creditInfo = x));
+
+    this.vendingService
+      .getAvailableCoins()
+      .subscribe((x) => (this.insertCoins = x));
+  }
+
+  private subscribeToSignalR(): void {
+    this.signalRService.startConnection();
+    this.signalRService.addDisplayDataListener();
+    this.signalRService.addReturnDataListener();
+
+    this.subscribeToDisplayData();
+    this.subscribeToReturnData();
+  }
+
   private subscribeToDisplayData(): void {
     this.signalRService.getDisplayObservable().subscribe((x) => {
+      if (x.creditInfo === null || x.creditInfo === undefined) {
+        x.creditInfo = this.displayData?.creditInfo;
+      }
+
+      if (x.statusText === null || x.statusText === undefined) {
+        x.statusText = this.displayData?.statusText;
+      }
+
       this.displayData = x;
     });
   }

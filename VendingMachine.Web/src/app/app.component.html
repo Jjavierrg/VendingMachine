@@ -3,20 +3,21 @@
     <button class="btn" (click)="showInsertCoins()">Insert Coins</button>
     <button class="btn" (click)="returnCoins()">Return Coins</button>
   </div>
-  <app-display class="display" [status]="displayData.StatusText" [credit]="displayData.CreditInfo"></app-display>
+  <app-display class="display" [status]="displayData.statusText" [credit]="displayData.creditInfo"></app-display>
   <div class="products">
-    <app-slot *ngFor="let product of products$ | async" [product]="product"></app-slot>
+    <app-slot *ngFor="let product of products" [product]="product" (productSelection)="onProductSelection($event)">
+    </app-slot>
   </div>
 </div>
 
 <app-modal *ngIf="insertCoinsModalVisible" [(visible)]="insertCoinsModalVisible" [showCancelButton]="true"
-  (accept)="insertCoinsToMachine()">
+  (accept)="insertCoinsToMachine()" title="Insert coins">
   <div class="coin-list">
     <app-quantity-coin *ngFor="let coin of insertCoins" [coin]="coin"></app-quantity-coin>
   </div>
 </app-modal>
 
-<app-modal *ngIf="isReturnCoinsModalVisible" [(visible)]="isReturnCoinsModalVisible">
+<app-modal *ngIf="isReturnCoinsModalVisible" [(visible)]="isReturnCoinsModalVisible" title="Take your coins">
   <div class="coin-list">
     <app-quantity-coin *ngFor="let coin of returnedCoins" [coin]="coin"></app-quantity-coin>
   </div>
