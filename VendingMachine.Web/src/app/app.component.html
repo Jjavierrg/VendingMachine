@@ -19,6 +19,6 @@
 
 <app-modal *ngIf="isReturnCoinsModalVisible" [(visible)]="isReturnCoinsModalVisible" title="Take your coins">
   <div class="coin-list">
-    <app-quantity-coin *ngFor="let coin of returnedCoins" [coin]="coin"></app-quantity-coin>
+    <app-quantity-coin *ngFor="let coin of returnedCoins" [coin]="coin" [readonly]="true"></app-quantity-coin>
   </div>
 </app-modal>
