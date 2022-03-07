@@ -1,6 +1,23 @@
-<app-quantity-coin [coin]="coin"></app-quantity-coin>
-<app-quantity-coin [coin]="coin2" [readonly]="true"></app-quantity-coin>
-<app-display status="estado de prueba" [credit]="50"></app-display>
-<app-slot [product]="product1"></app-slot>
-<app-slot [product]="product2"></app-slot>
-<app-slot [product]="product3"></app-slot>
+<div class="container">
+  <div class="toolbar">
+    <button class="btn" (click)="showInsertCoins()">Insert Coins</button>
+    <button class="btn" (click)="returnCoins()">Return Coins</button>
+  </div>
+  <app-display class="display" [status]="displayData.StatusText" [credit]="displayData.CreditInfo"></app-display>
+  <div class="products">
+    <app-slot *ngFor="let product of products$ | async" [product]="product"></app-slot>
+  </div>
+</div>
+
+<app-modal *ngIf="insertCoinsModalVisible" [(visible)]="insertCoinsModalVisible" [showCancelButton]="true"
+  (accept)="insertCoinsToMachine()">
+  <div class="coin-list">
+    <app-quantity-coin *ngFor="let coin of insertCoins" [coin]="coin"></app-quantity-coin>
+  </div>
+</app-modal>
+
+<app-modal *ngIf="isReturnCoinsModalVisible" [(visible)]="isReturnCoinsModalVisible">
+  <div class="coin-list">
+    <app-quantity-coin *ngFor="let coin of returnedCoins" [coin]="coin"></app-quantity-coin>
+  </div>
+</app-modal>

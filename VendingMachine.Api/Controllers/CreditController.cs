@@ -29,6 +29,15 @@
             return Ok(response);
         }
 
+        [HttpGet("coins")]
+        [ProducesResponseType(typeof(IEnumerable<CoinWithQuantityDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetCoins()
+        {
+            var query = new GetAvailableCoinsQuery();
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(UserCreditDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> AddCredit([FromBody] CoinWithQuantityDto[] coins)

@@ -20,4 +20,12 @@ export class QuantityCoinComponent {
       isEuro ? 'Eur' : 'Cts'
     }`;
   }
+
+  public onCoinClick(): void {
+    if (!this.coin || this.readonly) {
+      return;
+    }
+
+    this.coin.quantity = (this.coin.quantity ?? 0) + 1;
+  }
 }

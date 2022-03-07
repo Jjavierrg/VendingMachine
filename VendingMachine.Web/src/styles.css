@@ -2,6 +2,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url("http://fonts.cdnfonts.com/css/lcd-phone");
 
+:root {
+  --green: #4caf50;
+  --red: #f44336;
+  --white: #fff;
+  --gray: #ccc;
+  --black: #000;
+  --bluegray: #607d8b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+}
+
+.btn {
+  color: var(--white);
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+  margin: 5px;
+  border: 1px solid var(--gray);
+  color: var(--black);
+}
+
+.btn.ok {
+  background-color: var(--green);
+  border: 1px solid var(--green);
 }

@@ -1,4 +1,4 @@
 <div class="container">
-  <span class="status">{{status}}</span>
-  <span class="credit">Credit: {{ (credit ?? 0) / 100 }} Eur</span>
+  <span class="status">{{status ? status : 'Ready'}}</span>
+  <span class="credit">Credit: {{ credit / 100 }} Eur</span>
 </div>

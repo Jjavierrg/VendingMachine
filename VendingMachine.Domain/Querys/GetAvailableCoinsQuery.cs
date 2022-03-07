@@ -3,7 +3,7 @@
     using MediatR;
     using VendingMachine.Domain.Models;
 
-    public class GetAvailableCoinsQuery : IRequest<IEnumerable<CoinWithQuantityDto>>
+    public class GetCreditQuery : IRequest<UserCreditDto>
     {
     }
 }

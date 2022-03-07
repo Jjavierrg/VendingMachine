@@ -18,6 +18,9 @@
             CreateMap<MachineWalletCoin, CoinWithQuantityDto>()
                 .ForMember(d => d.Quantity, opt => opt.MapFrom((src, dest) => src.NumberOfCoins))
                 .ForMember(d => d.CoinValue, opt => opt.MapFrom((src, dest) => src.Coin?.Value));
+
+            CreateMap<Coin, CoinWithQuantityDto>()
+                .ForMember(d => d.CoinValue, opt => opt.MapFrom((src, dest) => src.Value));
         }
     }
 }

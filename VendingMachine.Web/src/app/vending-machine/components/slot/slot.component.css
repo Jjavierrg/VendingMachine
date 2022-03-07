@@ -10,6 +10,7 @@
   border-radius: 10px;
   -webkit-user-select: none;
   user-select: none;
+  background-color: var(--white);
 }
 
 .product {
@@ -31,12 +32,12 @@
 }
 
 .no-stock {
-  background-color: #f44336;
+  background-color: var(--red);
   cursor: not-allowed;
 }
 
 .stock {
-  background-color: #4caf50;
+  background-color: var(--green);
   cursor: pointer;
 }
 

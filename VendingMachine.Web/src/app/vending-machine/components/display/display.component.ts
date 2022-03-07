@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class DisplayComponent {
   @Input() public status: string = '';
-  @Input() public credit?: number;
+  @Input() public credit: number = 0;
 
   constructor() {}
 }
