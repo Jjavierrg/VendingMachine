@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "VendingMachine.Web", "VendorMachine.Web\VendingMachine.Web.esproj", "{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Infrastructure", "VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj", "{7132DD12-24F7-4563-B781-46AE70848D97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Infrastructure.Core", "VendingMachine.Infrastructure.Core\VendingMachine.Infrastructure.Core.csproj", "{821E4403-7AAF-46BC-9654-32DCE5CC6849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Entities", "VendingMachine.Entities\VendingMachine.Entities.csproj", "{825C9CE1-7092-4296-97DC-AB8E5CA0384E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE498C8C-B03B-4A29-B29E-699436BD2DBE}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{CBA64F5A-4522-4B66-87AA-6DEC966D5805}"
+	ProjectSection(SolutionItems) = preProject
+		proxy\Dockerfile = proxy\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxyConf", "proxyConf", "{EE915C8A-1091-46EB-97ED-6E4D759ADE7A}"
+	ProjectSection(SolutionItems) = preProject
+		proxy\proxyConf\reverseproxy = proxy\proxyConf\reverseproxy
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendingMachine.Api", "VendingMachine.Api\VendingMachine.Api.csproj", "{E43D2954-B95B-4715-B03C-0E08178A9214}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F7EBCE-C5AF-48A3-B3B9-10C03B3CFEDA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7132DD12-24F7-4563-B781-46AE70848D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7132DD12-24F7-4563-B781-46AE70848D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7132DD12-24F7-4563-B781-46AE70848D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7132DD12-24F7-4563-B781-46AE70848D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821E4403-7AAF-46BC-9654-32DCE5CC6849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821E4403-7AAF-46BC-9654-32DCE5CC6849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821E4403-7AAF-46BC-9654-32DCE5CC6849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821E4403-7AAF-46BC-9654-32DCE5CC6849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825C9CE1-7092-4296-97DC-AB8E5CA0384E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825C9CE1-7092-4296-97DC-AB8E5CA0384E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825C9CE1-7092-4296-97DC-AB8E5CA0384E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825C9CE1-7092-4296-97DC-AB8E5CA0384E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E43D2954-B95B-4715-B03C-0E08178A9214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E43D2954-B95B-4715-B03C-0E08178A9214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E43D2954-B95B-4715-B03C-0E08178A9214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E43D2954-B95B-4715-B03C-0E08178A9214}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBA64F5A-4522-4B66-87AA-6DEC966D5805} = {BE498C8C-B03B-4A29-B29E-699436BD2DBE}
+		{EE915C8A-1091-46EB-97ED-6E4D759ADE7A} = {CBA64F5A-4522-4B66-87AA-6DEC966D5805}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A02911D-85C7-4DAE-B45C-271B26998C86}
+	EndGlobalSection
+EndGlobal

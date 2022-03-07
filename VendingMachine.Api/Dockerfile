@@ -7,8 +7,15 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+
 COPY ["VendingMachine.Api/VendingMachine.Api.csproj", "VendingMachine.Api/"]
+COPY ["VendingMachine.Domain/VendingMachine.Domain.csproj", "VendingMachine.Domain/"]
+COPY ["VendingMachine.Entities/VendingMachine.Entities.csproj", "VendingMachine.Entities/"]
+COPY ["VendingMachine.Infrastructure/VendingMachine.Infrastructure.csproj", "VendingMachine.Infrastructure/"]
+COPY ["VendingMachine.Infrastructure.Core/VendingMachine.Infrastructure.Core.csproj", "VendingMachine.Infrastructure.Core/"]
+
 RUN dotnet restore "VendingMachine.Api/VendingMachine.Api.csproj"
+
 COPY . .
 WORKDIR "/src/VendingMachine.Api"
 RUN dotnet build "VendingMachine.Api.csproj" -c Release -o /app/build
@@ -19,4 +26,8 @@ RUN dotnet publish "VendingMachine.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY ./wait-for-it.sh ./wait-for-it.sh
+RUN chmod +x ./wait-for-it.sh
+
 ENTRYPOINT ["dotnet", "VendingMachine.Api.dll"]

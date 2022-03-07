@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+    proxy:
+        build: 
+            context: ./proxy
+            dockerfile: Dockerfile
+        ports: 
+            - "80:80"
+        restart: always
+    apiservice:
+        build: 
+            context: .
+            dockerfile: ./VendingMachine.Api/Dockerfile
+        entrypoint: ["./wait-for-it.sh", "db:1433", "-t", "120", "--", "dotnet", "VendingMachine.Api.dll"]
+        depends_on: 
+          - proxy
+          - db
+    uiservice:
+        build: 
+            context: ./VendingMachine.Web
+            dockerfile: Dockerfile
+        depends_on: 
+          - proxy
+
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        expose:  
+            - 1433  
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="toolbar">
+    <button class="btn" (click)="showInsertCoins()">Insert Coins</button>
+    <button class="btn" (click)="returnCoins()">Return Coins</button>
+  </div>
+  <app-display class="display" [status]="displayData.statusText" [credit]="displayData.creditInfo"></app-display>
+  <div class="products">
+    <app-slot *ngFor="let product of products" [product]="product" (productSelection)="onProductSelection($event)">
+    </app-slot>
+  </div>
+</div>
+
+<app-modal *ngIf="insertCoinsModalVisible" [(visible)]="insertCoinsModalVisible" [showCancelButton]="true"
+  (accept)="insertCoinsToMachine()" title="Insert coins">
+  <div class="coin-list">
+    <app-quantity-coin *ngFor="let coin of insertCoins" [coin]="coin"></app-quantity-coin>
+  </div>
+</app-modal>
+
+<app-modal *ngIf="isReturnCoinsModalVisible" [(visible)]="isReturnCoinsModalVisible" title="Take your coins">
+  <div class="coin-list">
+    <app-quantity-coin *ngFor="let coin of returnedCoins" [coin]="coin" [readonly]="true"></app-quantity-coin>
+  </div>
+</app-modal>
