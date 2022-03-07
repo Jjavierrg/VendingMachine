@@ -30,7 +30,12 @@ export class VendingService {
   }
 
   public insertCoins(coins?: CoinWithQuantityDto[]): void {
-    this.apiClient.creditPOST(coins).subscribe();
+    const coinsInserted = (coins ?? []).filter((x) => !!x.quantity);
+    if (!coinsInserted?.length) {
+      return;
+    }
+
+    this.apiClient.creditPOST(coinsInserted).subscribe();
   }
 
   public returnCoins(): void {
