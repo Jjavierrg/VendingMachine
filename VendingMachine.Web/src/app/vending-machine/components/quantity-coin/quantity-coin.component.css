@@ -14,6 +14,10 @@
   user-select: none;
 }
 
+.coin.enabled {
+  cursor: pointer;
+}
+
 .container {
   width: 100px;
   display: flex;

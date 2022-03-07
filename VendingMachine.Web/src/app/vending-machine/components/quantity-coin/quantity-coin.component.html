@@ -1,5 +1,5 @@
 <div class="container" *ngIf="coin">
-  <div class="coin" (click)="onCoinClick()">{{ getCoinDescription(coin) }}</div>
+  <div class="coin" (click)="onCoinClick()" [ngClass]="{'enabled': !readonly}">{{ getCoinDescription(coin) }}</div>
   <input min="0" *ngIf="!readonly" type="number" [(ngModel)]="coin.quantity">
   <span *ngIf="readonly">x {{coin.quantity}}</span>
 </div>
